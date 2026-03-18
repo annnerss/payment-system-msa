@@ -1,0 +1,23 @@
+# STS/Eclipse 워크스페이스
+.metadata/
+.classpath
+.project
+.settings/
+Servers/
+
+# Gradle
+.gradle/
+build/
+**/build/
+**/!src/**/build/
+
+# IntelliJ (혹시 나중에)
+.idea/
+*.iml
+
+# 로그
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
