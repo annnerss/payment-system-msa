@@ -8,7 +8,6 @@ Kafka 기반 Event-Driven Architecture와 Redis를 활용한 안정적인 결제
 Idempotency, Distributed Lock, Retry, Dead Letter Queue(DLQ)를 적용하여
 실제 서비스 수준의 안정성과 확장성을 고려했습니다.
 
----
 
 ## Architecture
 
@@ -28,7 +27,6 @@ API Gateway (api-service)
 settlement-service
 ```
 
----
 
 ## Event Flow
 
@@ -38,7 +36,6 @@ settlement-service
 4. settlement-service에서 이벤트 소비
 5. 처리 결과에 따라 상태 변경 (SUCCESS / FAILED)
 
----
 
 ## Tech Stack
 
@@ -58,7 +55,6 @@ settlement-service
 
 * MySQL
 
----
 
 ## Core Features
 
@@ -67,28 +63,24 @@ settlement-service
 * user / payment / settlement 서비스 분리
 * 서비스 간 독립적인 배포 및 확장 가능
 
----
 
 ### 2. Event-Driven Architecture (Kafka)
 
 * 결제와 정산을 비동기 이벤트 기반으로 분리
 * 서비스 간 결합도 감소
 
----
 
 ### 3. Redis Idempotency (중복 요청 방지)
 
 * Idempotency-Key 기반 요청 처리
 * 동일 요청 재시도 시 중복 결제 방지
 
----
 
 ### 4. Distributed Lock (Redisson)
 
 * 사용자 기준 분산락 적용
 * 동시 결제 요청으로 인한 Race Condition 방지
 
----
 
 ### 5. Retry + DLQ (Kafka 안정성)
 
@@ -96,7 +88,6 @@ settlement-service
 * 재시도 실패 시 DLQ(payment-topic-dlq)로 이동
 * 장애 데이터 추적 및 복구 가능
 
----
 
 ## ERD
 
@@ -115,7 +106,6 @@ Payment
 - created_at
 ```
 
----
 
 ## API Spec
 
@@ -147,7 +137,6 @@ Response
 }
 ```
 
----
 
 ## How to Run
 
@@ -162,7 +151,6 @@ docker-compose up
 3. settlement-service
 4. api-service
 
----
 
 ## Test Scenario
 
@@ -171,21 +159,18 @@ docker-compose up
 * amount: 10000
   → SUCCESS 처리
 
----
 
 ### 실패 테스트
 
 * amount: 60000
   → Retry → 실패 → DLQ 이동
 
----
 
 ### Idempotency 테스트
 
 * 동일 Idempotency-Key 요청
   → Duplicate Request 발생
 
----
 
 ## What I Learned
 
@@ -194,7 +179,6 @@ docker-compose up
 * Redis를 활용한 중복 요청 및 동시성 제어
 * Retry / DLQ를 통한 장애 대응 설계
 
----
 
 ## Related to Real-World System
 
